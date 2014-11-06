@@ -5,7 +5,7 @@
  * Future Updates: Retail, enhanced selections for output directory and help file
  * 
  * @author hhdmp1</br>
- * @version Created 05-01-2014 Last Modified 09-14-2014
+ * @version Created 05-01-2014 Last Modified 11-06-2014
  * 			</br></br>
  * 			05-01-2014: Created Class: Logit, ReportGUI, SOTI_Reports</br>
  * 			05-07-2014: Created Class: DataImportIndependent, DataImportVirtual, Report Processing</br>
@@ -17,8 +17,9 @@
  * 			09-13-2014: Modified Class: DataImportIndependent, DataSort2D, DataImportVirtual, Debug, ReportProcessing</br>
  * 			09-19-2014: Modified Class: DataImportVirtual </br>
  * 			09-22-2014: Modified Class: DataSort2d, DataImportIndependent</br>
- * 			09-24-2014: Created Class: DataExtractSVMobileVersions
- * 			09-24-2014: Modified Class: ReportProcessing
+ * 			09-24-2014: Created Class: DataExtractSVMobileVersions</br>
+ * 			09-24-2014: Modified Class: ReportProcessing</br>
+ * 			11-06-2014: Modified Class: Data Extract SVMobile Version, DataImportIndepandent, DataImportVirtual, Debug</br>
  * 
  */
 package SOTIReports;

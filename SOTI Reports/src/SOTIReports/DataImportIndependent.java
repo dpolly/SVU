@@ -262,6 +262,7 @@ public class DataImportIndependent extends ReportProcessing
 				case 71:
 				case 80:
 				case 86: return "East";
+				case 99: return "HomeOffice";
 				default: return "Unknown";
 			}	
 		}

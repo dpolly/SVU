@@ -5,10 +5,12 @@ import java.util.Arrays;
  * Debugging tools for project
  * 
  * @author Hhdmp1</br>
- * @version Created 09-12-2014 Last Modified 09-13-2014
+ * @version Created 09-12-2014 Last Modified 11-06-2014
  * 		</br></br>
  * 			09-12-2014 DMP: Added Method:compareString</br>
  * 			09-13-2014 DMP: Added Method:print2DArray</br>
+ * 			11-06-2014 DMP: Added Contstuctor: Array</br>
+ * 			11-06-2014 DMP: Added Method:printArray
  */
 public class Debug 
 {
@@ -18,6 +20,13 @@ public class Debug
 	 * Default constructor
 	 */
 	public Debug ()
+	{
+		
+	}
+	/**
+	 * Constructor that includes array used for debugging
+	 */
+	public Debug(String [] array)
 	{
 		
 	}
@@ -46,11 +55,25 @@ public class Debug
 			else System.out.println("No Match");
 		}
 	}
+	/**
+	 * A debugging tool that will print out the contents of an Array to the console
+	 * 
+	 *   Constructor: Debug tempArray = new Debug (sortArray)
+	 *   
+	 * @param printArray	the array to be printed to the console
+	 */
+	public static void printArray(String [] printArray)
+	{
+		for (int i = 0; i < printArray.length; i++)
+		{
+			System.out.println(printArray[i]);
+		}
+	}
 	
 	/**
 	 *  A debugging tool that will print out the contents of a 2DArray to the console.
 	 *
-	 * 	Constructor: Debug tempArray = new Debug (sortArray);
+	 * 	Constructor: Debug tempArray = new Debug (sort2dArray);
 	 * 
 	 * @param printArray	the two dimensional array to be printed to the console
 	 */

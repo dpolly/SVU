@@ -6,12 +6,13 @@ import java.io.*;
  * Current Store Status, Region, Store Number, TimeZone, Device count, Last Connection and eOrderVersion
  * 
  * @author Hhdmp1</br>
- * @version Created 05-07-2014 Last Modified 09-19-2014 
+ * @version Created 05-07-2014 Last Modified 11-06-2014 
  * 			</br></br>
  * 			09-12-2014 DMP: changed store number from "unknown" to 000000 if CID blank in Method:srExtractDeviceVirtual</br>
  * 			09-13-2014 DMP: added sort on store number to Method:importVirtualData </br>
- * 			09-18-2014 DMP: added device count Method:srCountDevice
+ * 			09-18-2014 DMP: added device count Method:srCountDevice </br>
  * 			09-19-2014 DMP: added call to srCountDevice Method:importVirtualData
+ * 			11-06-2014 DMP: updated for changes due to SOTI Server Upgrade to 11 Method:srExtractDeviceVirtual
  */
 public class DataImportVirtual extends ReportProcessing
 {
@@ -180,7 +181,6 @@ public class DataImportVirtual extends ReportProcessing
 	{
 		//First Step: remove " and split line into Temp Array 
 		String [] tempArray;
-		line=line.replace("\"", "");
 		tempArray = line.split(",");
 //		
 		//Second Step: Pull needed information about specific device
@@ -191,19 +191,23 @@ public class DataImportVirtual extends ReportProcessing
 		reportData[rowCount][4] = "n/a"; //default is 0
 
 		/*Extract store number from CID ID Number, however if CID ID Number is blank will fill in 000000 */
-		if (tempArray[41].indexOf("061") >= 0) reportData[rowCount][2]=tempArray[41].replace("061-", "61"); //remove dash and add to reportData
-		else reportData[rowCount][2] = "000000"; //to deal with unexpected or unknown CID Numbers
+		if (!tempArray[2].isEmpty())
+		{
+			tempArray[2] = tempArray[2].replace("-","");
+			if (tempArray[2].substring(0, 1).indexOf("0") >= 0) reportData[rowCount][2]=tempArray[2].substring(1, 7);
+			else reportData[rowCount][2] = tempArray[2];
+		}
+		else  reportData[rowCount][2] = "000000"; //to deal with unexpected or unknown CID Numbers
 		
 		/*Extract Last Connection Date */
-		if(tempArray[48] != "") 
+		if(!tempArray[4].isEmpty()) 
 		{
-			tempArray[48] = tempArray[48].replace("Last Connected Time:", ""); //remove none date
-			tempArray[48] = tempArray[48].substring(0,10);//extract date
-			reportData[rowCount][5] = tempArray[48].trim();//trim out white space and add to reportData
+			tempArray[4] = tempArray[4].substring(0,10);//extract date
+			reportData[rowCount][5] = tempArray[4].trim();//trim out white space and add to reportData
 		}
 		
 		/*Extract eOrder Version*/
-		if (tempArray[42] != "") reportData[rowCount][6] = tempArray[42].replace("version=", "");//trim to version only and add to reportData
+		if (tempArray[3].toLowerCase().indexOf("version=") >= 0) reportData[rowCount][6] = tempArray[3].replace("version=", "");//trim to version only and add to reportData
 	}	
 }
 

@@ -5,9 +5,10 @@ package SOTIReports;
  * 
  * 
  * @author Hhdmp1
- * @version Created 09-24-2014 Last Modified 09-24-2014 </br>
+ * @version Created 09-24-2014 Last Modified 11-06-2014 </br>
  * 
  * 			09-24-2014 DMP: Created Method storeSearch </br>
+ * 			11-06-2014 DMP: Cleaned up extra checking that is no longer needed with SOTI 11 Reports Method:storeSearch</br> 
  */
 public class DataExtractSVMobileVersion 
 {
@@ -45,7 +46,8 @@ public class DataExtractSVMobileVersion
 			{
 				if (reportData[i][storeNumColumn] != null && reportData[i][storeNumColumn] !="000000")
 				{
-					if (storeNumber.compareTo(reportData[i][storeNumColumn]) == 0 && reportData[i][svMobileVerColumn].substring(0) != "<" && reportData[i][svMobileVerColumn] != null && reportData[i][svMobileVerColumn].substring(0) != "e") 
+					if (storeNumber.compareTo(reportData[i][storeNumColumn]) == 0 && reportData[i][svMobileVerColumn] != null) 
+		
 					{
 						Double version = Double.parseDouble((reportData[i][6]).substring(0,3));
 						if (results < version) results=version;			
