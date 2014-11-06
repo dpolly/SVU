@@ -6,12 +6,12 @@ import java.io.*;
  * Current Store Status, Region, Store Number, TimeZone, Device count, Last Connection and eOrderVersion
  * 
  * @author Hhdmp1</br>
- * @Version Created 06-20-2014 Last Modified 09-22-2014
+ * @Version Created 06-20-2014 Last Modified 11-06-2014
  * 			</br></br>
  * 			06-20-2014 DMP: updated Regions to reflect East/West Method: srRegionAssign</br>
  * 			09-22-2014 DMP: added call to DataSort2D class Method: importIndependentData</br>
- * 			11-06-2014 DMP: updated for SOTI 11 file extract changes and simplified some of code
- * 							Method: importIndependentData, srExtractDeviceInd, srExtractFolderInd and srExtractTimeZoneInd
+ * 			11-06-2014 DMP: updated for SOTI 11 file extract changes and simplified some of code </br>
+ * 							Method: importIndependentData, srExtractDeviceInd, srExtractFolderInd and srExtractTimeZoneInd </br>
  */
 public class DataImportIndependent extends ReportProcessing
 {
