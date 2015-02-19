@@ -12,6 +12,10 @@ import javax.swing.*;
  * 			</br></br>
  * 			09-13-2014 DMP: Changed store number validation in Method:reportStoreListing </br>
  * 			09-24-2014 DMP: Added call to DataExtractSVMobile Version Method: reportStoreListing </br>
+ * 			02-18-2015 DMP: Changed call to DataExtractSVMobile Version for support of 5.4.1 release Method: reportStoreListing</br>
+ *			02-18-2015 DMP: Changed device listing to include hardware Method: reportDeviceListing</br>
+ *			02-18-2015 DMP: Changed store listing to include hardware Method: reportStoreListing </br>
+ *			02-18-2014 DMP: Re-factored DataExtracSVMobile to DataExtractStoreSearch</br>
  */
 public class ReportProcessing 
 {
@@ -95,7 +99,7 @@ public class ReportProcessing
 		{
 			BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, false));
 			//header setup, checks of report data for easily adding customer types
-			if (reportData[0][0].indexOf("Independent") >= 0 || reportData[0][0].indexOf("Virtual") >= 0) writer.write("Region,StoreNumber,TimeZone,DeviceCount,LastConnect,eOrderVersion\n");
+			if (reportData[0][0].indexOf("Independent") >= 0 || reportData[0][0].indexOf("Virtual") >= 0) writer.write("Region,StoreNumber,TimeZone,DeviceCount,LastConnect,eOrderVersion,Hardware\n");
 	
 			for (int i = 1; i < reportData.length; i++)
 			{
@@ -106,7 +110,8 @@ public class ReportProcessing
 						if((reportData[i][3]) != null) writer.write(reportData[i][3] + ","); else writer.write(",");
 						if((reportData[i][4]) != null) writer.write(reportData[i][4] + ","); else writer.write(",");
 						if((reportData[i][5]) != null) writer.write(reportData[i][5] + ","); else writer.write(",");
- 						if((reportData[i][6]) != null) writer.write(reportData[i][6]); else writer.write("");
+ 						if((reportData[i][6]) != null) writer.write(reportData[i][6] + ","); else writer.write(",");
+ 						if((reportData[i][7]) != null) writer.write(reportData[i][7]); else writer.write("");
 						writer.write("\n");
 				}
 			}
@@ -143,7 +148,7 @@ public class ReportProcessing
 		//reportType = active, inactive or all
 		int status = -1;
 		
-		DataExtractSVMobileVersion versionTable = new DataExtractSVMobileVersion(reportData);
+		DataExtractStoreSearch versionTable = new DataExtractStoreSearch(reportData);
 		
 		//Validate file and directory exist, if not create
 		String fileName = outputDirectory + reportData[0][0] + "-" + reportType + " stores.csv";
@@ -158,7 +163,7 @@ public class ReportProcessing
 		{
 			BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, false));
 			//header setup, checks of report data for easily adding customer types
-			if (reportData[0][0].indexOf("Independent") >= 0 || reportData[0][0].indexOf("Virtual") >= 0) writer.write("Region,StoreNumber,TimeZone,DeviceCount,eOrderVersion\n");
+			if (reportData[0][0].indexOf("Independent") >= 0 || reportData[0][0].indexOf("Virtual") >= 0) writer.write("Region,StoreNumber,TimeZone,DeviceCount,eOrderVersion,Hardware\n");
 			for (int i = 1; i < reportData.length; i++)
 			{
 				if (reportData[i][2] != null && reportData[i -1][2] != null && reportData[i][2].equalsIgnoreCase(reportData[i -1][2]) == false)
@@ -171,7 +176,8 @@ public class ReportProcessing
 						if((reportData[i][3]) != null) writer.write(reportData[i][3] + ","); else writer.write(",");
 						if((reportData[i][4]) != null) writer.write(reportData[i][4] + ","); else writer.write(",");
 						//runs a search to determine highest version for store and reports that in the report, ignores null or bad version data.   
-						if(Integer.parseInt(reportData[i][4]) >= 1) writer.write(Double.toString(versionTable.storeSearch(reportData[i][2], 2, 6))); else writer.write("");
+						if(Integer.parseInt(reportData[i][4]) >= 1) writer.write(versionTable.storeSearchVersion(reportData[i][2], 2, 6) + ","); else writer.write(",");
+						if(reportData[i][7] !=null) writer.write(versionTable.storeSearchHardware(reportData[i][2], 2, 7)); else writer.write("");
 						writer.write("\n");
 					}
 				}

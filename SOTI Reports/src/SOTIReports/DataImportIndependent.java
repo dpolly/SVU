@@ -12,6 +12,7 @@ import java.io.*;
  * 			09-22-2014 DMP: added call to DataSort2D class Method: importIndependentData</br>
  * 			11-06-2014 DMP: updated for SOTI 11 file extract changes and simplified some of code </br>
  * 							Method: importIndependentData, srExtractDeviceInd, srExtractFolderInd and srExtractTimeZoneInd </br>
+ *			02-18-2015 DMP: added extract of hardware for MC92 Deployment Method:srExtractDeviceInd </br>
  */
 public class DataImportIndependent extends ReportProcessing
 {
@@ -153,7 +154,7 @@ public class DataImportIndependent extends ReportProcessing
 	 * Extracts data from lines designated as "device" these lines contain contain specific details about a device.
 	 * In addition logs the general data about each device that was pulled from other lines.   
 	 * DataReport fields logged: [0] store status [1] region [2] store number [3] time zone [4] device count
-	 * DataReport fields extracted and logged: [5] last connect date [6] eOrder Version
+	 * DataReport fields extracted and logged: [5] last connect date [6] eOrder Version [7] hardware
 	 * 
 	 * @param 	line	the data that will be evaluated in the form of a string 	
 	 */
@@ -184,6 +185,10 @@ public class DataImportIndependent extends ReportProcessing
 					tempArray[1] = tempArray[1].replaceAll(",", "");
 					reportData[rowCount][6] = tempArray[1];
 				}
+				//extracting hardware information added on 02-18-2015
+				tempArray = line.split(" ");
+				tempArray[0] = tempArray[0].replace("\"", "");
+				reportData[rowCount][7] = tempArray[0];
 		}
 	}
 	

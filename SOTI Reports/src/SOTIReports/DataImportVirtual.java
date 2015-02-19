@@ -11,8 +11,9 @@ import java.io.*;
  * 			09-12-2014 DMP: changed store number from "unknown" to 000000 if CID blank in Method:srExtractDeviceVirtual</br>
  * 			09-13-2014 DMP: added sort on store number to Method:importVirtualData </br>
  * 			09-18-2014 DMP: added device count Method:srCountDevice </br>
- * 			09-19-2014 DMP: added call to srCountDevice Method:importVirtualData
- * 			11-06-2014 DMP: updated for changes due to SOTI Server Upgrade to 11 Method:srExtractDeviceVirtual
+ * 			09-19-2014 DMP: added call to srCountDevice Method:importVirtualData</br>
+ * 			11-06-2014 DMP: updated for changes due to SOTI Server Upgrade to 11 Method:srExtractDeviceVirtual</br>
+ * 			02-18-2015 DMP: updated method to extract hardware in prep for MC92 deployment Method: srExtractDeviceVirtual</br>
  */
 public class DataImportVirtual extends ReportProcessing
 {
@@ -173,7 +174,7 @@ public class DataImportVirtual extends ReportProcessing
 	/**
 	 * Extracts data from the lines in the report and adds the data to the reportData 2d array.     
 	 * DataReport default fields for this customer type: [0] store status [1] region [3] time zone [4] device count
-	 * DataReport fields extracted and logged: [2] store number [5] last connect date [6] eOrder Version
+	 * DataReport fields extracted and logged: [2] store number [5] last connect date [6] eOrder Version [7]
 	 * 
 	 * @param	line	the data that will be evaluated in the form of a string 	
 	 */
@@ -208,6 +209,9 @@ public class DataImportVirtual extends ReportProcessing
 		
 		/*Extract eOrder Version*/
 		if (tempArray[3].toLowerCase().indexOf("version=") >= 0) reportData[rowCount][6] = tempArray[3].replace("version=", "");//trim to version only and add to reportData
+		//extracting hardware version added 02-18-2014
+		tempArray = line.split(" ");
+		reportData[rowCount][7]=tempArray[0];
 	}	
 }
 
